@@ -1,0 +1,14 @@
+---
+
+# Should we care about permissions here?
+- name: Ensure dhparam_path exists
+  file:
+    path={{ dhparam_path }}
+    state=directory
+
+- name: Make sure DH params file is good
+  dhparam:
+    name={{ dhparam_name }}
+    path={{ dhparam_path }}
+    length={{ dhparam_length }}
+    expires={{ dhparam_expires }}

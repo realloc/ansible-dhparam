@@ -1,0 +1,14 @@
+---
+
+# Default Diffie-Hellman parameter size in bits
+dhparam_length: 2048
+
+# Directory on the managed hosts where Diffie-Hellman parameter sets are kept
+# and maintained.
+dhparam_path: '/etc/pki/dhparam/'
+
+# Default Diffie-Hellman parameter size in bits
+dhparam_name: 'dhparam.pem'
+
+# Regenerate key if it's mtime/ctime is that old
+dhparam_expires: 2592000 # 60*60*24*30
