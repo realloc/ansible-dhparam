@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 #
 
+from ansible.module_utils.basic import *
+
 DOCUMENTATION = '''
 ---
 module: dhparam
@@ -39,22 +41,22 @@ EXAMPLES = '''
   dhparam: path="/etc/pki/dhparam/" name="dh2048.pem"
 '''
 
-# import module snippets with all includes we need
-from ansible.module_utils.basic import *
 
-def is_dh_file_ok( self, filename):
+def is_dh_file_ok(self, filename):
     # Check if file exists
-    if not ( os.path.exists(filename) and os.path.isfile(filename) ):
+    if not (os.path.exists(filename) and os.path.isfile(filename)):
         return False
 
     # Check if dhparams file has valid content
-    (rc,out,err) = self.run_command('openssl dhparam -check -noout -text -in ' + filename)
+    (rc, out, err) = self.run_command(
+        'openssl dhparam -check -noout -text -in ' +
+        filename)
     if out.find('DH parameters appear to be ok') == -1:
         return False
 
     # Check if dhparams file has correct length
-    dh_len = re.search('DH Parameters: \((\d+) bit\)',out).group(1)
-    if not int(dh_len)  == int(self.params['length']):
+    dh_len = re.search('DH Parameters: \((\d+) bit\)', out).group(1)
+    if not int(dh_len) == int(self.params['length']):
         return False
 
     # Check if dhparams file is not rotten
@@ -63,6 +65,7 @@ def is_dh_file_ok( self, filename):
         return False
 
     return True
+
 
 def main():
     module = AnsibleModule(
@@ -87,21 +90,21 @@ def main():
                 default=2592000
             )
         ),
-        supports_check_mode = True
+        supports_check_mode=True
     )
 
     changed = False
     path = os.path.normcase(module.params['path'])
     name = os.path.normcase(module.params['name'])
-    filename = os.path.join (path, name)
+    filename = os.path.join(path, name)
 
     # Generate new dhparams if needed
     if not is_dh_file_ok(module, filename):
         # Do nothing in check mode
         if module.check_mode:
             module.exit_json(changed=True, filename=filename)
-        # Call openssl to generate DH params
-        (rc,out,err) = module.run_command(
+            # Call openssl to generate DH params
+        (rc, out, err) = module.run_command(
             'openssl dhparam ' +
             str(module.params['length']) +
             ' -out ' +
@@ -110,7 +113,9 @@ def main():
         if rc == 0:
             changed = True
         else:
-            module.fail_json(filename=filename, msg='Failed to generate dhparams file: %s' % err)
+            module.fail_json(
+                filename=filename,
+                msg='Failed to generate dhparams file: %s' % err)
 
     module.exit_json(changed=changed, filename=filename)
 
