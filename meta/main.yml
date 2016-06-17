@@ -3,7 +3,7 @@ galaxy_info:
   author: Stanislav Bogatyrev <realloc@realloc.spb.ru>
   description: Generate Diffie-Hellman parameters file
   license: GPLv3
-  min_ansible_version: 1.8.0
+  min_ansible_version: 2.0.0
   platforms:
     - name: Ubuntu
       versions:
@@ -20,7 +20,8 @@ galaxy_info:
       versions:
         - 13.1
         - 13.2
-  categories:
+  galaxy_tags:
     - system
+    - ssl
 
 dependencies: []
