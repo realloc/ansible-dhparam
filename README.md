@@ -3,6 +3,7 @@ dhparam
 
 Manage Diffie-Hellman parameters file.
 Inspired by [debops.dhparam](https://github.com/debops/ansible-dhparam) role.
+Makefile for environment creation taken from [bborysenko/ansible-playbooks](https://github.com/bborysenko/ansible-playbooks).
 
 Requirements
 ------------

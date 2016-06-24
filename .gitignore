@@ -1,1 +1,6 @@
 ansible.cfg
+*.retry
+.vagrant
+.molecule
+.cache
+.venv

@@ -1,0 +1,25 @@
+---
+molecule:
+  ignore_paths:
+    - .git
+    - .vagrant
+    - .molecule
+    - .cache
+    - .venv
+
+vagrant:
+  platforms:
+    - name: ubuntu-14.04
+      box: bento/ubuntu-14.04
+
+  providers:
+    - name: virtualbox
+      type: virtualbox
+      options:
+        memory: 512
+        cpus: 2
+
+  instances:
+    - name: dhparam-01
+      options:
+        append_platform_to_hostname: yes

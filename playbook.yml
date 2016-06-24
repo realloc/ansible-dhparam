@@ -1,0 +1,7 @@
+---
+- hosts: all
+  roles:
+    - role: ansible-dhparam
+      dhparam_path: '/etc/nginx/ssl'
+      dhparam_name: 'dh1024.pem'
+      dhparam_length: 1024
