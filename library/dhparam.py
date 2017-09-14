@@ -106,9 +106,10 @@ def main():
             # Call openssl to generate DH params
         (rc, out, err) = module.run_command(
             'openssl dhparam ' +
-            str(module.params['length']) +
             ' -out ' +
-            filename
+            filename +
+            ' ' +
+            str(module.params['length'])
         )
         if rc == 0:
             changed = True
